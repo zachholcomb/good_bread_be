@@ -10,10 +10,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_02_171044) do
+ActiveRecord::Schema.define(version: 2020_09_02_173624) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "items", force: :cascade do |t|
+    t.string "name"
+    t.integer "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "shipment_items", force: :cascade do |t|
+    t.bigint "item_id"
+    t.bigint "shipment_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_shipment_items_on_item_id"
+    t.index ["shipment_id"], name: "index_shipment_items_on_shipment_id"
+  end
+
+  create_table "shipments", force: :cascade do |t|
+    t.integer "status"
+    t.string "delivery_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "subscription_id"
+    t.index ["subscription_id"], name: "index_shipments_on_subscription_id"
+  end
 
   create_table "subscriptions", force: :cascade do |t|
     t.string "delivery_day"
@@ -31,5 +56,8 @@ ActiveRecord::Schema.define(version: 2020_09_02_171044) do
     t.string "password_digest"
   end
 
+  add_foreign_key "shipment_items", "items"
+  add_foreign_key "shipment_items", "shipments"
+  add_foreign_key "shipments", "subscriptions"
   add_foreign_key "subscriptions", "users"
 end

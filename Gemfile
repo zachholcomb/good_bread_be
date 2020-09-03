@@ -12,6 +12,7 @@ gem 'rack-cors'
 gem 'fast_jsonapi'
 gem 'jwt_sessions'
 
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -21,6 +22,7 @@ group :development, :test do
   gem 'simplecov'
   gem 'faker'
   gem 'shoulda-matchers'
+  gem 'capybara'
 end
 
 group :development do

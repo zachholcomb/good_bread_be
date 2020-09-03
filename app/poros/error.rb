@@ -22,6 +22,11 @@ class Error
       create_error(message)
     end
 
+    def not_found
+      message = 'Oops, record not found'
+      create_error(message)
+    end
+
     def create_error(message)
       error = Error.new(message)
       ErrorSerializer.new(error)

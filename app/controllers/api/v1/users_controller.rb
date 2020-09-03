@@ -16,7 +16,6 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def update
-    
     render json: UserSerializer.new(User.update(params[:id], user_params))
   end
 

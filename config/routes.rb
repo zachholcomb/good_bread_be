@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       end
       resources :subscriptions, only: [:index, :show]
       resources :items, except: [:new]
+      resources :shipments, except: [:new]
     end
   end
 end

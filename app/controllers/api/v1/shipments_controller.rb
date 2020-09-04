@@ -29,6 +29,6 @@ class Api::V1::ShipmentsController < ApplicationController
 
   def missing_params?
     params[:subscription_id].blank? || params[:status].blank? ||
-    params[:status].blank?  
+    params[:status].blank? 
   end
 end

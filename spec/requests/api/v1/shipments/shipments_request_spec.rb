@@ -93,5 +93,23 @@ RSpec.describe 'Shipments requests' do
       user = User.last
       expect(user.subscription.shipments.length).to eq(0)
     end
+
+    it 'users shipments show request' do
+      get "/api/v1/users/#{@user.id}/shipments/#{@shipment.id}"
+      expect(response).to be_successful
+      expect(response.status).to eq(200)
+
+      shipment_response = JSON.parse(response.body, symbolize_names: true)
+      expect(shipment_response[:data][:attributes][:id]).to eq(@shipment.id)
+    end
+
+    it 'users shipments index request' do
+      get "/api/v1/users/#{@user.id}/shipments"
+      expect(response).to be_successful
+      expect(response.status).to eq(200)
+
+      shipment_response = JSON.parse(response.body, symbolize_names: true)
+      expect(shipment_response[:data].first[:attributes][:id]).to eq(@shipment.id)
+    end
   end
 end

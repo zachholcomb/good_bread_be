@@ -37,5 +37,61 @@ RSpec.describe 'Shipments requests' do
       user = User.last
       expect(user.subscription.shipments.last.id).to eq(shipment_response[:data][:attributes][:id])
     end
+
+    it 'shipment create request error handling' do
+      shipment_params = {
+        status: 0,
+        delivery_date: '9/05/2020'
+      }
+      post "/api/v1/shipments", params: shipment_params
+      expect(response).to_not be_successful
+      expect(response.status).to eq(400)
+
+      shipment_response = JSON.parse(response.body, symbolize_names: true)
+      expect(shipment_response[:data][:attributes][:message]).to eq('Missing required fields')
+    end
+
+    it "shipment index request" do
+      get '/api/v1/shipments'
+      expect(response).to be_successful
+      expect(response.status).to eq(200)
+
+      shipment_response = JSON.parse(response.body, symbolize_names: true)
+      expect(shipment_response[:data].length).to eq(1)
+      expect(shipment_response[:data].first[:attributes][:id]).to eq(@shipment.id)
+    end
+
+    it 'shipment show request' do
+      get "/api/v1/shipments/#{@shipment.id}"
+      expect(response).to be_successful
+      expect(response.status).to eq(200)
+      
+      shipment_response = JSON.parse(response.body, symbolize_names: true)
+      expect(shipment_response[:data][:attributes][:id]).to eq(@shipment.id)
+    end
+
+    it 'shipment update request' do
+      update_params = {
+        status: 1
+      }
+      put "/api/v1/shipments/#{@shipment.id}", params: update_params
+      expect(response).to be_successful
+      expect(response.status).to eq(200)
+
+      shipment_response = JSON.parse(response.body, symbolize_names: true)
+      shipment = Shipment.last
+      expect(shipment_response[:data][:attributes][:status]).to eq(shipment.status)
+    end
+
+    it 'shipment delete request' do
+      delete "/api/v1/shipments/#{@shipment.id}"
+      expect(response).to be_successful
+      expect(response.status).to eq(200)
+
+      shipment_response = JSON.parse(response.body, symbolize_names: true)
+      expect(shipment_response[:data][:attributes][:id]).to eq(@shipment.id)
+      user = User.last
+      expect(user.subscription.shipments.length).to eq(0)
+    end
   end
 end

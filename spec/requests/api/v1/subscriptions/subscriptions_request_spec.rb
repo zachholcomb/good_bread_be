@@ -79,32 +79,13 @@ RSpec.describe 'Subscriptions requests' do
       expect(delete_response[:data][:attributes][:id]).to eq(subscription.id)
     end
 
-    it 'get all subscriptions' do
-      get "/api/v1/subscriptions"
+    it 'can get a users subscription' do
+      get "/api/v1/users/#{@user1.id}/subscription/#{@user1.subscription.id}"
       expect(response).to be_successful
       expect(response.status).to eq(200)
 
-      sub_response = JSON.parse(response.body, symbolize_names: true)
-      expect(sub_response[:data].length).to eq(1)
-      expect(sub_response[:data].first[:attributes][:id]).to eq(@user1.subscription.id)
-    end
-
-    it 'can get subscription by id' do
-      get "/api/v1/subscriptions/#{@user1.subscription.id}"
-      expect(response).to be_successful
-      expect(response.status).to eq(200)
-      
       sub_response = JSON.parse(response.body, symbolize_names: true)
       expect(sub_response[:data][:attributes][:id]).to eq(@user1.subscription.id)
-    end
-
-    it 'has error handling if subscription not found' do
-      get "/api/v1/subscriptions/9999999999"
-      expect(response).to_not be_successful
-      expect(response.status).to eq(404)
-
-      item_response = JSON.parse(response.body, symbolize_names: true)
-      expect(item_response[:data][:attributes][:message]).to eq('Oops, record not found')
     end
   end
 end

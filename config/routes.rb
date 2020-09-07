@@ -14,6 +14,7 @@ Rails.application.routes.draw do
       resources :shipments, except: [:new]
 
       # SESSIONS
+      post '/register', to: 'sessions#new'
       post '/login', to: 'sessions#create'
       delete '/logout', to: 'sessions#destroy'  
     end

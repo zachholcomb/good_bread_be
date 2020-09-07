@@ -1,4 +1,6 @@
-class Api::V1::ShipmentsController < ApplicationController
+class Api::V1::Admin::ShipmentsController < Api::V1::Admin::BaseController
+  before_action :authorize_access_request!, :require_admin
+
   def create
     return render json: Error.missing_params, status: :bad_request if missing_params?
     render json: ShipmentSerializer.new(Shipment.create(shipment_params)), status: :created
@@ -7,7 +9,7 @@ class Api::V1::ShipmentsController < ApplicationController
   def index
     render json: ShipmentSerializer.new(Shipment.all)
   end
-
+  
   def show
     render json: ShipmentSerializer.new(Shipment.find(params[:id]))
   end

@@ -18,10 +18,21 @@ RSpec.describe "User Requests" do
         password: '1234',
         password_confirmation: '1234'
       )
+
+      login_params = {
+        "email": "john@example.com",
+        "password": "1234"
+      }
+      post '/api/v1/login', params: login_params
+      credentials = JSON.parse(response.body, symbolize_names: true)
+      token = credentials[:csrf]
+      @header = {
+        "X-CSRF-TOKEN": token
+      }
     end
 
     it 'can get one user by id' do
-      get "/api/v1/users/#{@user.id}"
+      get "/api/v1/users/#{@user.id}", headers: @header
       expect(response).to be_successful
       expect(response.status).to eq(200)
 
@@ -33,7 +44,7 @@ RSpec.describe "User Requests" do
       update_params = {
         "email": "zach@google.com"
       }
-      put "/api/v1/users/#{@user.id}", params: update_params
+      put "/api/v1/users/#{@user.id}", params: update_params, headers: @header
       expect(response).to be_successful
       expect(response.status).to eq(200)
 
@@ -44,7 +55,7 @@ RSpec.describe "User Requests" do
     it 'can delete a user' do
       expect(User.all.length).to eq(2)
       
-      delete "/api/v1/users/#{@user.id}"
+      delete "/api/v1/users/#{@user.id}", headers: @header
       expect(response).to be_successful
       expect(response.status).to eq(200)
       

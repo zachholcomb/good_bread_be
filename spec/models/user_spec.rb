@@ -22,9 +22,23 @@ RSpec.describe User do
         password: "1234",
         address: "499 Humboldt. Pl." 
       }
-      
+
       user = User.create(user_params)
       expect(user.role).to eq(0)
+    end
+
+    it "should over ride default of 0 if passed in create" do
+      user_params = {
+        email: "zach@gmail.com",
+        name: "Zach H",
+        password: "1234",
+        address: "499 Humboldt St.",
+        role: 1
+      }
+
+      user = User.create(user_params)
+      expect(user.role).to_not eq(0)
+      expect(user.role).to eq(1)
     end
   end
 end

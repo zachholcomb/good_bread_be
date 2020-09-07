@@ -12,6 +12,10 @@ Rails.application.routes.draw do
       resources :subscriptions, only: [:index, :show]
       resources :items, except: [:new]
       resources :shipments, except: [:new]
+
+      # SESSIONS
+      post '/login', to: 'sessions#create'
+      delete '/logout', to: 'sessions#destroy'  
     end
   end
 end

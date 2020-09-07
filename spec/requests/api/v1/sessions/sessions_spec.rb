@@ -11,6 +11,20 @@ RSpec.describe 'login request' do
       )
   end
 
+  it 'can sign a user up' do
+    user_params = {
+      "email": "zach@example.com",
+      "name": "Zach H",
+      "address": "900 East St."
+      "password": "password",
+      "password_confirmation": "password"
+    }
+    post '/api/v1/register', params: user_params
+    expect(response).to be_successful
+    expect(response.status).to eq(201) 
+    require 'pry'; binding.pry
+  end
+
   it 'user can login' do
     login_params = {
       "email": "john@example.com",

@@ -15,7 +15,7 @@ RSpec.describe 'login request' do
     user_params = {
       "email": "zach@example.com",
       "name": "Zach H",
-      "address": "900 East St."
+      "address": "900 East St.",
       "password": "password",
       "password_confirmation": "password"
     }

@@ -4,14 +4,9 @@ class Api::V1::SessionsController < ApplicationController
   def new
     user = User.new(user_params)
     if user.save
-      payload = { user_id: user.id }
-      session = JWTSessions::Session.new(payload: payload, refresh_by_access_allowed: true)
-      tokens = session.login
-      response.set_cookie(JWTSessions.access_cookie,
-                          value: tokens[:access],
-                          httponly: true,
-                          secure: Rails.env.production?)
-      render json: { csrf: tokens[:csrf] }, status: :created
+      tokens = LoginHandler.session(build_payload(user))
+      set_response(tokens)
+      render json: { csrf: tokens[:csrf], user: UserSerializer.new(user) }, status: :created
     else
       render json: { error: user.errors.full_messages.join(' ') }, status: :unprocessable_entity
     end
@@ -20,14 +15,9 @@ class Api::V1::SessionsController < ApplicationController
   def create
     user = User.find_by(email: params[:email])
     if user.authenticate(params[:password])
-      payload = { user_id: user.id }
-      session = JWTSessions::Session.new(payload: payload, refresh_by_access_allowed: true)
-      tokens = session.login
-      response.set_cookie(JWTSessions.access_cookie,
-                          value: tokens[:access],
-                          httponly: true,
-                          secure: Rails.env.production?)
-      render json: { csrf: tokens[:csrf]}
+      tokens = LoginHandler.session(build_payload(user))
+      set_response(tokens)
+      render json: { csrf: tokens[:csrf], user: UserSerializer.new(user) }
     else
       not_authorized  
     end
@@ -43,5 +33,16 @@ class Api::V1::SessionsController < ApplicationController
 
   def user_params
     params.permit(:email, :name, :address, :password, :password_confirmation)
+  end
+
+  def build_payload(user)
+    { user_id: user.id }
+  end
+
+  def set_response(tokens)
+    response.set_cookie(JWTSessions.access_cookie,
+                          value: tokens[:access],
+                          httponly: true,
+                          secure: Rails.env.production?)
   end
 end 

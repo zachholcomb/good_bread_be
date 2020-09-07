@@ -27,6 +27,11 @@ class Error
       create_error(message)
     end
 
+    def unauthorized
+      message = "Email or password doesn't match"
+      create_error(message)
+    end
+
     def create_error(message)
       error = Error.new(message)
       ErrorSerializer.new(error)

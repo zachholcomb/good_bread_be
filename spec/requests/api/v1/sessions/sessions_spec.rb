@@ -22,7 +22,26 @@ RSpec.describe 'login request' do
     post '/api/v1/register', params: user_params
     expect(response).to be_successful
     expect(response.status).to eq(201) 
-    require 'pry'; binding.pry
+    register_response = JSON.parse(response.body, symbolize_names: true)
+    
+    expect(register_response[:csrf]).to_not eq(nil)
+    expect(register_response[:user][:data][:attributes][:email]).to eq("zach@example.com")
+  end
+
+  it 'cant create a user with bad credentials' do
+    user_params = {
+      "email": "john@example.com",
+      "name": "Zach H",
+      "address": "900 East St.",
+      "password": "password",
+      "password_confirmation": "password"
+    }
+    post '/api/v1/register', params: user_params
+    expect(response).to_not be_successful
+    expect(response.status).to eq(422)
+    invalid_response = JSON.parse(response.body, symbolize_names: true)
+
+    expect(invalid_response[:error]).to eq("Email has already been taken")
   end
 
   it 'user can login' do
@@ -37,6 +56,7 @@ RSpec.describe 'login request' do
 
     login = JSON.parse(response.body, symbolize_names: true)
     expect(login[:csrf]).to_not eq(nil)
+    expect(login[:user][:data][:attributes][:email]).to eq("john@example.com")
   end
 
   it 'incorrect credentials are sent unauthorized message' do

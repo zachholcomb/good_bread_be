@@ -49,4 +49,13 @@ RSpec.describe 'Admin user requests' do
     expect(user_response[:data].length).to eq(2)
     expect(user_response[:data].first[:attributes][:email]).to eq(@user.email)
   end
+
+  it "can get one user" do
+    get "/api/v1/admin/users/#{@user.id}", headers: @header
+    expect(response).to be_successful
+    expect(response.status).to eq(200)
+
+    user_response = JSON.parse(response.body, symbolize_names: true)
+    expect(user_response[:data][:attributes][:email]).to eq(@user.email)
+  end
 end

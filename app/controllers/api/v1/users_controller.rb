@@ -1,4 +1,6 @@
 class Api::V1::UsersController < ApplicationController
+  before_action :authorize_access_request!
+  
   def show
     render json: UserSerializer.new(User.find(params[:id]))
   end

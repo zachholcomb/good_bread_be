@@ -9,5 +9,7 @@ RSpec.describe Item, type: :model do
   describe "relationships" do
     it { should have_many(:shipment_items) }
     it { should have_many(:shipments).through(:shipment_items) }
+    it { should have_many(:order_items) }
+    it { should have_many(:orders).through(:order_items) }
   end
 end

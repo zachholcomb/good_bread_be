@@ -11,4 +11,8 @@ class User < ApplicationRecord
   def set_role
     self.role ||= 0
   end
+
+  def self.get_users
+    User.where(role: 1)
+  end
 end

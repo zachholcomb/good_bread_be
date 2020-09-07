@@ -1,17 +1,22 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
+      # REGULAR ROUTES
+      resources :items, only: [:index, :show]
 
       # USER SPECIFIC ROUTES
-      resources :users, except: [:new] do
+      resources :users, only: [:show, :update, :destroy] do
         resources :shipments, only: [:index, :show], controller: :users_shipments
-        resources :subscription, only: [:create, :update, :destroy]
+        resources :subscription, only: [:create, :update, :destroy, :show]
       end
 
       # ADMIN ROUTES
-      resources :subscriptions, only: [:index, :show]
-      resources :items, except: [:new]
-      resources :shipments, except: [:new]
+      namespace :admin do
+        resources :users, only: [:index, :show]
+        resources :subscriptions, only: [:index, :show]
+        resources :items, only: [:new, :create, :update, :destroy]
+        resources :shipments, except: [:new]
+      end
 
       # SESSIONS
       post '/register', to: 'sessions#new'

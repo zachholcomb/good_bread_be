@@ -24,7 +24,7 @@ RSpec.describe User do
       }
 
       user = User.create(user_params)
-      expect(user.role).to eq(0)
+      expect(user.role).to eq('guest')
     end
 
     it "should over ride default of 0 if passed in create" do
@@ -37,8 +37,18 @@ RSpec.describe User do
       }
 
       user = User.create(user_params)
-      expect(user.role).to_not eq(0)
-      expect(user.role).to eq(1)
+      expect(user.role).to eq('user')
+
+      admin_params = {
+        email: "ollie@gmail.com",
+        name: "Zach H",
+        password: "1234",
+        address: "499 Humboldt. Pl.",
+        role: 2
+      }
+
+      admin = User.create(admin_params)
+      expect(admin.role).to eq('admin')
     end
   end
 end

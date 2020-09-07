@@ -6,6 +6,7 @@ class User < ApplicationRecord
   validates :name, :address, :role, presence: true
   validates :email, uniqueness: true, presence: true
   validates :password_digest, presence: true
+  enum role: %w(guest user admin)
 
   def set_role
     self.role ||= 0

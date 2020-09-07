@@ -6,7 +6,9 @@ class ApplicationController < ActionController::API
     @current_user ||= User.find(payload['user_id'])
   end
 
-  private
+  def current_admin?
+    current_user && @current_user.admin?
+  end
 
   def not_authorized
     render json: Error.unauthorized, status: :unauthorized

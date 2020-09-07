@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
       # ADMIN ROUTES
       namespace :admin do
-        resources :users, only: [:index]
+        resources :users, only: [:index, :show]
         resources :subscriptions, only: [:index, :show]
         resources :items, only: [:new, :create, :update, :destroy]
         resources :shipments, except: [:new]

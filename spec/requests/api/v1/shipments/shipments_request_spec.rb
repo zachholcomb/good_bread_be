@@ -20,10 +20,20 @@ RSpec.describe 'Shipments requests' do
       @shipment = @subscription.shipments.create!(status: 0,
                                                  delivery_date: '9/03/2020'
                                                 )
+      login_params = {
+        "email": "john@example.com",
+        "password": "1234"
+      }
+      post '/api/v1/login', params: login_params
+      credentials = JSON.parse(response.body, symbolize_names: true)
+      token = credentials[:csrf]
+      @header = {
+        "X-CSRF-TOKEN": token
+      }
     end
 
     it 'users shipments show request' do
-      get "/api/v1/users/#{@user.id}/shipments/#{@shipment.id}"
+      get "/api/v1/users/#{@user.id}/shipments/#{@shipment.id}", headers: @header
       expect(response).to be_successful
       expect(response.status).to eq(200)
 
@@ -32,7 +42,7 @@ RSpec.describe 'Shipments requests' do
     end
 
     it 'users shipments index request' do
-      get "/api/v1/users/#{@user.id}/shipments"
+      get "/api/v1/users/#{@user.id}/shipments", headers: @header
       expect(response).to be_successful
       expect(response.status).to eq(200)
 

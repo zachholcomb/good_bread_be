@@ -1,4 +1,6 @@
 class Api::V1::UsersShipmentsController < ApplicationController
+  before_action :authorize_access_request!
+  
   def index
     user = User.find(params[:user_id])
     render json: ShipmentSerializer.new(user.subscription.shipments)

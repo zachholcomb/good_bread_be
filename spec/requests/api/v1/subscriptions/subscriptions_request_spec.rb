@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe 'Subscriptions requests' do
-  describe 'subscriptions crud' do
+RSpec.describe 'Subscription requests' do
+  describe 'subscription crud' do
     before(:each) do
       @user1 = User.create!(
         email: 'john@example.com',
@@ -25,6 +25,17 @@ RSpec.describe 'Subscriptions requests' do
         user: @user1
       }
       @subscription = Subscription.create!(subscription_params)
+
+      login_params = {
+        "email": "john@example.com",
+        "password": "1234"
+      }
+      post '/api/v1/login', params: login_params
+      credentials = JSON.parse(response.body, symbolize_names: true)
+      token = credentials[:csrf]
+      @header = {
+        "X-CSRF-TOKEN": token
+      }
     end
 
     it "create subscription spec" do
@@ -32,7 +43,7 @@ RSpec.describe 'Subscriptions requests' do
         "subscription_type": 0,
         "delivery_day": "Monday"
       }
-      post "/api/v1/users/#{@user2.id}/subscription", params: sub_params
+      post "/api/v1/users/#{@user2.id}/subscription", params: sub_params, headers: @header
       expect(response).to be_successful
       expect(response.status).to eq(201)
       
@@ -48,7 +59,7 @@ RSpec.describe 'Subscriptions requests' do
         "delivery_day": "Monday"
       }
 
-      post "/api/v1/users/#{@user2.id}/subscription", params: sub_params
+      post "/api/v1/users/#{@user2.id}/subscription", params: sub_params, headers: @header
       expect(response).to_not be_successful
       expect(response.status).to eq(400)
 
@@ -59,7 +70,7 @@ RSpec.describe 'Subscriptions requests' do
     it "user can update subscription" do
       subscription = @user1.subscription
       update = { "subscription_type": 1 }
-      put "/api/v1/users/#{@user1.id}/subscription/#{subscription.id}", params: update
+      put "/api/v1/users/#{@user1.id}/subscription/#{subscription.id}", params: update, headers: @header
       expect(response).to be_successful
       expect(response.status).to eq(200)
 
@@ -71,7 +82,7 @@ RSpec.describe 'Subscriptions requests' do
 
     it "user can delete their subscription" do
       subscription = @user1.subscription
-      delete "/api/v1/users/#{@user1.id}/subscription/#{subscription.id}"
+      delete "/api/v1/users/#{@user1.id}/subscription/#{subscription.id}", headers: @header
       expect(response).to be_successful
       expect(response.status).to eq(200)
 
@@ -80,7 +91,7 @@ RSpec.describe 'Subscriptions requests' do
     end
 
     it 'can get a users subscription' do
-      get "/api/v1/users/#{@user1.id}/subscription/#{@user1.subscription.id}"
+      get "/api/v1/users/#{@user1.id}/subscription/#{@user1.subscription.id}", headers: @header
       expect(response).to be_successful
       expect(response.status).to eq(200)
 

@@ -1,4 +1,6 @@
 class Api::V1::SubscriptionController < ApplicationController
+  before_action :authorize_access_request!
+
   def show
     return render json: Error.not_found, status: :not_found if subscription?
     render json: SubscriptionSerializer.new(Subscription.find(params[:id]))

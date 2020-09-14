@@ -3,13 +3,14 @@ class User < ApplicationRecord
   after_initialize :set_role
 
   has_one :subscription
+  has_many :orders
   validates :name, :address, :role, presence: true
   validates :email, uniqueness: true, presence: true
   validates :password_digest, presence: true
   enum role: %w(guest user admin)
 
   def set_role
-    self.role ||= 0
+    self.role ||= 1
   end
 
   def self.get_users

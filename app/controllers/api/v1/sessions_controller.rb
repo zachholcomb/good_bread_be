@@ -32,7 +32,7 @@ class Api::V1::SessionsController < ApplicationController
   private
 
   def user_params
-    params.permit(:email, :name, :address, :password, :password_confirmation)
+    params.permit(:email, :name, :address, :password, :password_confirmation, :role)
   end
 
   def build_payload(user)

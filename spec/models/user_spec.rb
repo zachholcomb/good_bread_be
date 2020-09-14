@@ -12,10 +12,11 @@ RSpec.describe User do
 
   describe "relationships" do
     it { should have_one :subscription }
+    it { should have_many :orders }
   end
 
   describe "role" do
-    it "should have a default role of 0" do
+    it "should have a default role of 1" do
       user_params = {
         email: "zach@gmail.com",
         name: "Zach H",
@@ -24,7 +25,7 @@ RSpec.describe User do
       }
 
       user = User.create(user_params)
-      expect(user.role).to eq('guest')
+      expect(user.role).to eq('user')
     end
 
     it "should over ride default of 0 if passed in create" do

@@ -3,11 +3,13 @@ Rails.application.routes.draw do
     namespace :v1 do
       # REGULAR ROUTES
       resources :items, only: [:index, :show]
+      resources :orders, only: [:show, :create, :destroy]
 
       # USER SPECIFIC ROUTES
       resources :users, only: [:show, :update, :destroy] do
         resources :shipments, only: [:index, :show], controller: :users_shipments
-        resources :subscription, only: [:create, :update, :destroy, :show]
+        resources :subscription, except: [:new, :index]
+        resources :orders, only: [:create, :index], controller: :users_orders
       end
 
       # ADMIN ROUTES

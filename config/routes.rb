@@ -18,6 +18,7 @@ Rails.application.routes.draw do
         resources :subscriptions, only: [:index, :show]
         resources :items, only: [:new, :create, :update, :destroy]
         resources :shipments, except: [:new]
+        resources :orders, only: [:index, :show, :update]
       end
 
       # SESSIONS

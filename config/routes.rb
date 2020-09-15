@@ -24,6 +24,7 @@ Rails.application.routes.draw do
       # SESSIONS
       post '/register', to: 'sessions#new'
       post '/login', to: 'sessions#create'
+      post '/refresh', to: 'refresh#create'
       delete '/logout', to: 'sessions#destroy'  
     end
   end

@@ -3,7 +3,8 @@ class Api::V1::SubscriptionController < ApplicationController
 
   def show
     return render json: Error.not_found, status: :not_found if subscription?
-    render json: SubscriptionSerializer.new(Subscription.find(params[:id]))
+
+    render json: SubscriptionSerializer.new(current_user.subscription)
   end
 
   def create
@@ -17,8 +18,7 @@ class Api::V1::SubscriptionController < ApplicationController
   end
 
   def destroy
-    subscription = Subscription.find(params[:id])
-    render json: SubscriptionSerializer.new(subscription.delete)
+    render json: SubscriptionSerializer.new(current_user.subscription.delete)
   end
 
   private

@@ -17,7 +17,7 @@ RSpec.describe 'login request' do
       "name": "Zach H",
       "address": "900 East St.",
       "password": "password",
-      "password_confirmation": "password"
+      "password_confirmation": "password",
     }
     post '/api/v1/register', params: user_params
     expect(response).to be_successful
@@ -34,7 +34,7 @@ RSpec.describe 'login request' do
       "name": "Zach H",
       "address": "900 East St.",
       "password": "password",
-      "password_confirmation": "password"
+      "password_confirmation": "password",
     }
     post '/api/v1/register', params: user_params
     expect(response).to_not be_successful

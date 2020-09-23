@@ -6,11 +6,11 @@ class Api::V1::UsersOrdersController < ApplicationController
     params[:items].each do |item|
       OrderItem.create(order: order, item_id: item.to_i)
     end
-    render json: { order: OrderSerializer.new(order), user: UserSerializer.new(current_user)}, status: :created
+    render json: { order: OrderSerializer.new(order, include: [:items]), user: UserSerializer.new(current_user)}, status: :created
   end
 
   def index
-    render json: OrderSerializer.new(current_user.orders)
+    render json: OrderSerializer.new(current_user.orders, include: [:items])
   end
 
   private

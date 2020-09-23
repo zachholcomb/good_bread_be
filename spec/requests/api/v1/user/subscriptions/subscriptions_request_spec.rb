@@ -25,6 +25,11 @@ RSpec.describe 'Subscription requests' do
         user: @user1
       }
       @subscription = Subscription.create!(subscription_params)
+      @shipment = Shipment.create!(
+        subscription: @subscription,
+        delivery_date: '9/14/2020',
+        status: 1
+      )
 
       login_params = {
         "email": "john@example.com",
@@ -91,7 +96,7 @@ RSpec.describe 'Subscription requests' do
     end
 
     it 'can get a users subscription' do
-      get "/api/v1/users/#{@user1.id}/subscription/#{@user1.subscription.id}", headers: @header
+      get "/api/v1/users/#{@user1.id}/subscription", headers: @header
       expect(response).to be_successful
       expect(response.status).to eq(200)
 

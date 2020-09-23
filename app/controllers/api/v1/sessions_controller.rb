@@ -6,7 +6,7 @@ class Api::V1::SessionsController < ApplicationController
     if user.save
       tokens = LoginHandler.session(build_payload(user))
       set_response(tokens)
-      render json: { csrf: tokens[:csrf], user: UserSerializer.new(user) }, status: :created
+      render json: { access: tokens[:access], csrf: tokens[:csrf], user: UserSerializer.new(user) }, status: :created
     else
       render json: { error: user.errors.full_messages.join(' ') }, status: :unprocessable_entity
     end
@@ -17,7 +17,7 @@ class Api::V1::SessionsController < ApplicationController
     if user.authenticate(params[:password])
       tokens = LoginHandler.session(build_payload(user))
       set_response(tokens)
-      render json: { csrf: tokens[:csrf], user: UserSerializer.new(user) }
+      render json: { access: tokens[:access], csrf: tokens[:csrf], user: UserSerializer.new(user) }
     else
       not_authorized  
     end

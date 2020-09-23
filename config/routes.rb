@@ -8,7 +8,7 @@ Rails.application.routes.draw do
       # USER SPECIFIC ROUTES
       resources :users, only: [:show, :update, :destroy] do
         resources :shipments, only: [:index, :show], controller: :users_shipments
-        resources :subscription, except: [:new, :index]
+        resources :subscription, except: [:new, :show]
         resources :orders, only: [:create, :index], controller: :users_orders
       end
 

@@ -2,8 +2,8 @@ class User < ApplicationRecord
   has_secure_password
   after_initialize :set_role
 
-  has_one :subscription
-  has_many :orders
+  has_one :subscription, dependent: :destroy
+  has_many :orders, dependent: :destroy
   validates :name, :address, :role, presence: true
   validates :email, uniqueness: true, presence: true
   validates :password_digest, presence: true

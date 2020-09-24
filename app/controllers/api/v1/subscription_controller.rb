@@ -1,10 +1,10 @@
 class Api::V1::SubscriptionController < ApplicationController
   before_action :authorize_access_request!
 
-  def show
+  def index
     return render json: Error.not_found, status: :not_found if subscription?
 
-    render json: SubscriptionSerializer.new(current_user.subscription)
+    render json: SubscriptionSerializer.new(current_user.subscription, include: [:shipments])
   end
 
   def create
@@ -32,6 +32,6 @@ class Api::V1::SubscriptionController < ApplicationController
   end
 
   def subscription?
-    Subscription.where(id: params[:id]).blank?
+    current_user.subscription.nil?
   end
 end

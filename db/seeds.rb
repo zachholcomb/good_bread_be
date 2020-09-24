@@ -1,7 +1,91 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+OrderItem.destroy_all
+ShipmentItem.destroy_all
+Item.destroy_all
+Order.destroy_all
+Shipment.destroy_all
+User.destroy_all
+
+# USERS
+admin = User.create!(
+  name: 'The Admin', 
+  email: 'admin@example.com', 
+  password: '1234',
+  address: '1560 Colfax Ave.',
+  city: 'Denver',
+  state: 'CO',
+  zip: '80202',
+  role: 2
+)
+
+user = User.create!(
+  name: 'Zach Holcomb',
+  email: 'zach@example.com',
+  password: '1234',
+  address: '594 Fairfax Ave.',
+  city: 'Denver',
+  state: 'CO',
+  zip: '80218',
+  role: 1
+)
+
+guest = User.create!(
+  name: 'Michael Jordan',
+  email: 'mj@example.com',
+  password: '1234',
+  address: '180 Apple St.',
+  city: 'Denver',
+  state: 'CO',
+  zip: '80505',
+  role: 0
+)
+
+# ITEMS
+loaf = Item.create!(name: 'Sourdough Batard', price: 750)
+olive_loaf = Item.create!(name: 'Olive and Polenta Loaf', price: 80)
+plain_croissant = Item.create!(name: 'Plain Croissant', price: 40)
+chocolate_croissant = Item.create!(name: 'Chocolate Croissant', price: 45)
+danish = Item.create!(name: 'Danish', price: 45)
+ham_cheese_croissant = Item.create!(name: 'Ham and Cheese Croissant', price: 4)
+bagel = Item.create(name: 'Bagel', price: 150)
+donut = Item.create(name: 'Donut', price: 400)
+
+# SUBSCRIPTIONS
+user_subscription = Subscription.create!(user: user, delivery_day: 'Thursday', subscription_type: 0)
+
+# SHIPMENTS
+shipment_1 = Shipment.create!(subscription: user_subscription, delivery_date: '9/1/2020', status: 2)
+shipment_2 = Shipment.create!(subscription: user_subscription, delivery_date: '9/8/2020', status: 2)
+shipment_3 = Shipment.create!(subscription: user_subscription, delivery_date: '9/15/2020', status: 2)
+shipment_4 = Shipment.create!(subscription: user_subscription, delivery_date: '9/22/2020', status: 2)
+shipment_4 = Shipment.create!(subscription: user_subscription, delivery_date: '9/29/2020', status: 1)
+shipment_5 = Shipment.create!(subscription: user_subscription, delivery_date: '10/5/2020', status: 0)
+
+
+# SHIPMENT_ITEMS
+shipments = [shipment_1, shipment_2, shipment_3, shipment_4, shipment_5]
+items = [loaf, olive_loaf]
+
+shipments.each do |shipment|
+  items.each do |item|
+    ShipmentItem.create!(shipment: shipment, item: item)
+  end
+end
+
+# ORDERS
+order_1 = Order.create!(user: user, status: 2, delivery_date: '9/7/2020')
+order_2 = Order.create!(user: user, status: 1, delivery_date: '9/10/2020')
+order_3 = Order.create!(user: user, status: 0, delivery_date: '9/15/2020')
+order_4 = Order.create!(user: guest, status: 1, delivery_date: '9/22/2020')
+
+# ODER_ITEMS
+orders = [order_1, order_2, order_3]
+
+orders.each do |order|
+  12.times do
+    OrderItem.create!(order: order, item: bagel)
+  end
+end
+
+6.times do 
+  OrderItem.create!(order: order_4, item: donut)
+end

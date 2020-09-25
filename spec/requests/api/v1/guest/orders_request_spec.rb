@@ -11,7 +11,7 @@ RSpec.describe 'guest orders' do
   it 'guest can order items' do
     order_params = {
       "items": [@item.id, @item2.id],
-      "status": 0,
+      "status": "Pending",
       "delivery_date": "9/5/2020",
       "name": "Zach",
       "email": "zach@example.com",

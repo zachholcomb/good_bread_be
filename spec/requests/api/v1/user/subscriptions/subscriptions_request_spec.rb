@@ -20,7 +20,7 @@ RSpec.describe 'Subscription requests' do
       )
 
       subscription_params = {
-        subscription_type: 0,
+        subscription_type: "Monthly",
         delivery_day: "Monday",
         user: @user1
       }
@@ -28,7 +28,7 @@ RSpec.describe 'Subscription requests' do
       @shipment = Shipment.create!(
         subscription: @subscription,
         delivery_date: '9/14/2020',
-        status: 1
+        status: "Delivered"
       )
 
       login_params = {
@@ -45,7 +45,7 @@ RSpec.describe 'Subscription requests' do
 
     it "create subscription spec" do
       sub_params = {
-        "subscription_type": 0,
+        "subscription_type": "Monthly",
         "delivery_day": "Monday"
       }
       post "/api/v1/users/#{@user2.id}/subscription", params: sub_params, headers: @header
@@ -74,15 +74,15 @@ RSpec.describe 'Subscription requests' do
 
     it "user can update subscription" do
       subscription = @user1.subscription
-      update = { "subscription_type": 1 }
+      update = { "subscription_type": "Bi-Monthly" }
       put "/api/v1/users/#{@user1.id}/subscription/#{subscription.id}", params: update, headers: @header
       expect(response).to be_successful
       expect(response.status).to eq(200)
 
       update_response = JSON.parse(response.body, symbolize_names: true)
-      expect(update_response[:data][:attributes][:subscription_type]).to eq(1)
+      expect(update_response[:data][:attributes][:subscription_type]).to eq("Bi-Monthly")
       user = User.find(@user1.id)
-      expect(user.subscription.subscription_type).to eq(1) 
+      expect(user.subscription.subscription_type).to eq("Bi-Monthly") 
     end
 
     it "user can delete their subscription" do

@@ -20,7 +20,7 @@ RSpec.describe 'Shipments requests' do
       )
 
       subscription_params = {
-        subscription_type: 0,
+        subscription_type: "Monthly",
         delivery_day: "Monday",
         user: @user
       }
@@ -45,7 +45,7 @@ RSpec.describe 'Shipments requests' do
     it 'shipment create request' do
       shipment_params = {
         subscription_id: @subscription.id,
-        status: 0,
+        status: "Pending",
         delivery_date: '9/05/2020'
       }
       post "/api/v1/admin/shipments", params: shipment_params, headers: @header
@@ -60,7 +60,7 @@ RSpec.describe 'Shipments requests' do
 
     it 'shipment create request error handling' do
       shipment_params = {
-        status: 0,
+        status: "Pending",
         delivery_date: '9/05/2020'
       }
       post "/api/v1/admin/shipments", params: shipment_params, headers: @header
@@ -83,7 +83,7 @@ RSpec.describe 'Shipments requests' do
 
     it 'shipment update request' do
       update_params = {
-        status: 1
+        status: "Shipped"
       }
       put "/api/v1/admin/shipments/#{@shipment.id}", params: update_params, headers: @header
       expect(response).to be_successful

@@ -21,7 +21,6 @@ ActiveRecord::Schema.define(version: 2020_09_25_162721) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "status"
-    t.string "image"
   end
 
   create_table "order_items", force: :cascade do |t|

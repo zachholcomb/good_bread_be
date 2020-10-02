@@ -14,7 +14,7 @@ class Api::V1::SubscriptionController < ApplicationController
   end
 
   def update
-    render json: SubscriptionSerializer.new(Subscription.update(params[:id], subscription_params))
+    render json: SubscriptionSerializer.new(Subscription.update(params[:id], subscription_params), include [:shipments])
   end
 
   def destroy
@@ -24,7 +24,7 @@ class Api::V1::SubscriptionController < ApplicationController
   private
 
   def subscription_params
-    params.permit(:delivery_day, :subscription_type, :user_id)
+    params.permit(:delivery_day, :subscription_type)
   end
 
   def missing_params?

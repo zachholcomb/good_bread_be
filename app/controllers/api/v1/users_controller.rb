@@ -6,7 +6,7 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def update
-    render json: UserSerializer.new(User.update(params[:id], user_params))
+    render json: { user: UserSerializer.new(User.update(params[:id], user_params)) }
   end
 
   def destroy

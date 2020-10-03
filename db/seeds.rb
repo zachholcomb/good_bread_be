@@ -44,25 +44,25 @@ loaf = Item.create!(name: 'Sourdough Batard', price: 750)
 loaf.image.attach(io: File.open('/Users/zachholcomb/projects/good_bread/good_bread_be/storage/bread.jpg'), filename: 'bread.jpg')
 
 olive_loaf = Item.create!(name: 'Olive and Polenta Loaf', price: 80)
-loaf.image.attach(io: File.open('/Users/zachholcomb/projects/good_bread/good_bread_be/storage/bread.jpg'), filename: 'bread.jpg')
+olive_loaf.image.attach(io: File.open('/Users/zachholcomb/projects/good_bread/good_bread_be/storage/bread.jpg'), filename: 'bread.jpg')
 
 plain_croissant = Item.create!(name: 'Plain Croissant', price: 40)
-loaf.image.attach(io: File.open('/Users/zachholcomb/projects/good_bread/good_bread_be/storage/croissant.jpg'), filename: 'croissant.jpg')
+plain_croissant.image.attach(io: File.open('/Users/zachholcomb/projects/good_bread/good_bread_be/storage/croissant.jpg'), filename: 'croissant.jpg')
 
 chocolate_croissant = Item.create!(name: 'Chocolate Croissant', price: 45)
-loaf.image.attach(io: File.open('/Users/zachholcomb/projects/good_bread/good_bread_be/storage/chocolate_croissant.jpg'), filename: 'chocolate_croissant.jpg')
+chocolate_croissant.image.attach(io: File.open('/Users/zachholcomb/projects/good_bread/good_bread_be/storage/chocolate_croissant.jpg'), filename: 'chocolate_croissant.jpg')
 
 danish = Item.create!(name: 'Danish', price: 45)
-loaf.image.attach(io: File.open('/Users/zachholcomb/projects/good_bread/good_bread_be/storage/danish.jpg'), filename: 'danish.jpg')
+danish.image.attach(io: File.open('/Users/zachholcomb/projects/good_bread/good_bread_be/storage/danish.jpg'), filename: 'danish.jpg')
 
 ham_cheese_croissant = Item.create!(name: 'Ham and Cheese Croissant', price: 4)
-loaf.image.attach(io: File.open('/Users/zachholcomb/projects/good_bread/good_bread_be/storage/ham_and_cheese.jpg'), filename: 'ham_and_cheese.jpg')
+ham_cheese_croissant.image.attach(io: File.open('/Users/zachholcomb/projects/good_bread/good_bread_be/storage/ham_and_cheese.jpg'), filename: 'ham_and_cheese.jpg')
 
 bagel = Item.create(name: 'Bagel', price: 150)
-loaf.image.attach(io: File.open('/Users/zachholcomb/projects/good_bread/good_bread_be/storage/bagel.jpeg'), filename: 'bagel.jpeg')
+bagel.image.attach(io: File.open('/Users/zachholcomb/projects/good_bread/good_bread_be/storage/bagel.jpeg'), filename: 'bagel.jpeg')
 
 donut = Item.create(name: 'Donut', price: 400)
-loaf.image.attach(io: File.open('/Users/zachholcomb/projects/good_bread/good_bread_be/storage/donut.jpeg'), filename: 'donut.jpeg')
+donut.image.attach(io: File.open('/Users/zachholcomb/projects/good_bread/good_bread_be/storage/donut.jpeg'), filename: 'donut.jpeg')
 
 
 # SUBSCRIPTIONS

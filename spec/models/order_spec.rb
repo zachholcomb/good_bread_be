@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Order do
   describe 'validations' do
     it { should validate_presence_of(:status) }
-    it { should validate_presence_of(:delivery_date) }
+    # it { should validate_presence_of(:delivery_date) }
   end
 
   describe 'relationships' do

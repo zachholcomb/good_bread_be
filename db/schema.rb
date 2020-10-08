@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 2020_10_04_060230) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "status"
-    t.integer "type"
+    t.integer "item_type"
     t.text "description"
   end
 

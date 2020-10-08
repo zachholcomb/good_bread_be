@@ -7,7 +7,16 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins 'http://localhost:8080', 'https://good-bread-fe-staging.herokuapp.com/'
+    origins 'http://localhost:8080'
+
+    resource '*',
+      headers: :any,
+      credentials: true,
+      methods: [:get, :post, :put, :patch, :delete, :options, :head]
+  end
+
+  allow do
+    origins 'https://good-bread-fe-staging.herokuapp.com/'
 
     resource '*',
       headers: :any,

@@ -10,14 +10,14 @@ RSpec.describe 'Admin items request' do
       role: 2
     )
 
-    @item_params = {"name": "Sourdough loaf", "price": 750 }
-    @item_params2 = {"name": "Croissant", "price": 450 }
-    @item = Item.create(@item_params)
-    @item2 = Item.create(@item_params2)
+    @item_params = {"name": "Sourdough loaf", "price": 750, "item_type": "Bread"}
+    @item_params2 = {"name": "Croissant", "price": 450, "item_type": "Bread"}
+    @item = Item.create!(@item_params)
+    @item2 = Item.create!(@item_params2)
 
     login_params = {
         "email": "admin@example.com",
-        "password": "1234"
+        "password": "1234" 
       }
     post '/api/v1/login', params: login_params
     credentials = JSON.parse(response.body, symbolize_names: true)

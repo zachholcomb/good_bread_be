@@ -49,7 +49,7 @@ RSpec.describe "User Requests" do
       expect(response.status).to eq(200)
 
       user_response = JSON.parse(response.body, symbolize_names: true)
-      expect(user_response[:data][:attributes][:email]).to eq('zach@google.com')
+      expect(user_response[:user][:data][:attributes][:email]).to eq('zach@google.com')
     end
 
     it 'can delete a user' do

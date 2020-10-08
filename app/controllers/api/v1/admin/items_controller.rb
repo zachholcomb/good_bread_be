@@ -19,7 +19,7 @@ class Api::V1::Admin::ItemsController < Api::V1::Admin::BaseController
   private
 
   def item_params
-    params.permit(:name, :price)
+    params.permit(:name, :price, :item_type)
   end
 
   def missing_params?

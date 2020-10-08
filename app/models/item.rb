@@ -11,7 +11,7 @@ class Item < ApplicationRecord
   validates :name, :price, presence: true
   validates :image, presence: true
   enum status: %w(Active Inactive)
-  enum type: %w(Bread Pastries Donuts Bagels)
+  enum item_type: %w(Bread Pastries Donuts Bagels)
 
   def set_defaults
     self.status ||= 0

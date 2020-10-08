@@ -45,7 +45,7 @@ loaf = Item.create!(name: 'Sourdough Batard',
                     item_type: 0,
                     description: 'Pre-order our Sourdough loaves by Wednesday and pick up Saturday or Sunday between 8 a.m. and noon at our bakery counter (1515 Madison).'
                    )
-loaf.image.attach(io: File.open('https://res.cloudinary.com/dr72rnhxt/image/upload/v1602187339/good_bread/bread_p0dl3z.jpg'), filename: 'bread.jpg')
+loaf.image.attach(io: 'https://res.cloudinary.com/dr72rnhxt/image/upload/v1602187339/good_bread/bread_p0dl3z.jpg', filename: 'bread.jpg')
 
 olive_loaf = Item.create!(name: 'Olive and Polenta Loaf',
                           price: 800,

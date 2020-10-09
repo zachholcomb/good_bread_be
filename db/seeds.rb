@@ -57,56 +57,56 @@ olive_loaf = Item.create!(name: 'Olive and Polenta Loaf',
                           item_type: 0,
                           description: 'Pre-order our Sourdough loaves by Wednesday and pick up Saturday or Sunday between 8 a.m. and noon at our bakery counter (1515 Madison).'
                          )
-olive_loaf.image.attach(io: File.open('/Users/zachholcomb/projects/good_bread/good_bread_be/storage/bread.jpg'), filename: 'bread.jpg')
+olive_loaf.image.attach(io: open('https://res.cloudinary.com/dr72rnhxt/image/upload/v1602187339/good_bread/bread_p0dl3z.jpg'), filename: 'bread.jpg')
 
 bluberry_walnut = Item.create!(name: 'Blueberry Walnut Loaf',
                           price: 800,
                           item_type: 0,
                           description: 'Pre-order our Sourdough loaves by Wednesday and pick up Saturday or Sunday between 8 a.m. and noon at our bakery counter (1515 Madison).'
                          )
-bluberry_walnut.image.attach(io: File.open('/Users/zachholcomb/projects/good_bread/good_bread_be/storage/bread.jpg'), filename: 'bread.jpg')
+bluberry_walnut.image.attach(io: open('https://res.cloudinary.com/dr72rnhxt/image/upload/v1602187339/good_bread/bread_p0dl3z.jpg'), filename: 'bread.jpg')
 
 plain_croissant = Item.create!(name: 'Plain Croissant',
                                price: 400,
                                item_type: 1,
                                description: 'Pre-order our traditional croissants by Wednesday and pick up Saturday or Sunday between 8 a.m. and noon at our bakery counter (1515 Madison).'
                               )
-plain_croissant.image.attach(io: File.open('/Users/zachholcomb/projects/good_bread/good_bread_be/storage/croissant.jpg'), filename: 'croissant.jpg')
+plain_croissant.image.attach(io: open('https://res.cloudinary.com/dr72rnhxt/image/upload/v1602187356/good_bread/croissant_kps2s5.jpg'), filename: 'croissant.jpg')
 
 chocolate_croissant = Item.create!(name: 'Chocolate Croissant',
                                    price: 450,
                                    item_type: 1,
                                    description: 'Pre-order our traditional croissants by Wednesday and pick up Saturday or Sunday between 8 a.m. and noon at our bakery counter (1515 Madison).'
                                   )
-chocolate_croissant.image.attach(io: File.open('/Users/zachholcomb/projects/good_bread/good_bread_be/storage/chocolate_croissant.jpg'), filename: 'chocolate_croissant.jpg')
+chocolate_croissant.image.attach(io: open('https://res.cloudinary.com/dr72rnhxt/image/upload/v1602187348/good_bread/chocolate_croissant_w2x3gr.jpg'), filename: 'chocolate_croissant.jpg')
 
 danish = Item.create!(name: 'Danish',
                       price: 450,
                       item_type: 1,
                       description: 'Pre-order our traditional danish pastry by Wednesday and pick up Saturday or Sunday between 8 a.m. and noon at our bakery counter (1515 Madison).'
                      )
-danish.image.attach(io: File.open('/Users/zachholcomb/projects/good_bread/good_bread_be/storage/danish.jpg'), filename: 'danish.jpg')
+danish.image.attach(io: open('/Users/zachholcomb/projects/good_bread/good_bread_be/storage/danish.jpg'), filename: 'danish.jpg')
 
 ham_cheese_croissant = Item.create!(name: 'Ham and Cheese Croissant',
                                     price: 475,
                                     item_type: 1,
                                     description: 'Pre-order our traditional croissants by Wednesday and pick up Saturday or Sunday between 8 a.m. and noon at our bakery counter (1515 Madison).'
                                    )
-ham_cheese_croissant.image.attach(io: File.open('/Users/zachholcomb/projects/good_bread/good_bread_be/storage/ham_and_cheese.jpg'), filename: 'ham_and_cheese.jpg')
+ham_cheese_croissant.image.attach(io: open('https://res.cloudinary.com/dr72rnhxt/image/upload/v1602187382/good_bread/ham_and_cheese_szpqcv.jpg'), filename: 'ham_and_cheese.jpg')
 
-bagel = Item.create(name: 'Bagel',
+bagel = Item.create(name: 'Bagels',
                     price: 150,
                     item_type: 3,
                     description: 'Pre-order a half-dozen or a dozen by Wednesday and pick up Saturday or Sunday between 8 a.m. and noon at our bakery counter (1515 Madison).'
                    )
-bagel.image.attach(io: File.open('/Users/zachholcomb/projects/good_bread/good_bread_be/storage/bagel.jpeg'), filename: 'bagel.jpeg')
+bagel.image.attach(io: open('https://res.cloudinary.com/dr72rnhxt/image/upload/v1602187325/good_bread/bagel_cbqjiq.jpg'), filename: 'bagel.jpeg')
 
-donut = Item.create(name: 'Donut',
+donut = Item.create(name: 'Donuts',
                     price: 400,
                     item_type: 2,
                     description: 'Pre-order a pack of seasonal fall donuts by Tuesday, October 6 at 11:59 p.m. and pick up Saturday, October 10 or Sunday, October 11 between 8 a.m. and noon at our bakery counter (1515 Madison).'
                    )
-donut.image.attach(io: File.open('/Users/zachholcomb/projects/good_bread/good_bread_be/storage/donut.jpeg'), filename: 'donut.jpeg')
+donut.image.attach(io: open('https://res.cloudinary.com/dr72rnhxt/image/upload/v1602187371/good_bread/donut_b2brqj.jpg'), filename: 'donut.jpeg')
 
 
 # SUBSCRIPTIONS

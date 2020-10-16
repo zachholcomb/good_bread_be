@@ -13,6 +13,7 @@ gem 'fast_jsonapi'
 gem 'jwt_sessions'
 gem 'cloudinary'
 gem 'figaro'
+gem 'sidekiq'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

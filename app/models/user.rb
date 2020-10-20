@@ -13,7 +13,13 @@ class User < ApplicationRecord
     self.role ||= 1
   end
 
-  def self.get_users
-    User.where(role: 1)
+  class << self
+    def get_users
+      User.where(role: 1)
+    end
+
+    def users_with_subscriptions
+      User.joins(:subscription)
+    end
   end
 end

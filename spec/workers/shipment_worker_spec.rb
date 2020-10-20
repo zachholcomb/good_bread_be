@@ -21,7 +21,12 @@ RSpec.describe ShipmentWorker, type: :worker do
   it 'adds job to the queue' do
     expect(ShipmentWorker.jobs.size).to eq(0)
 
-    ShipmentWorker.perform_async(@subscription)
+    ShipmentWorker.perform_async(@user)
     expect(ShipmentWorker.jobs.size).to eq(1)
+  end
+
+  it 'adds a shipment to the users subscription' do
+    ShipmentWorker.perform_async(@user)
+    
   end
 end

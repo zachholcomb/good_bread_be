@@ -2,6 +2,6 @@ class ShipmentWorker
   include Sidekiq::Worker
 
   def perform(*args)
-    # Do something
+    p User.all
   end
 end

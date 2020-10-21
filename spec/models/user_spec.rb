@@ -28,7 +28,7 @@ RSpec.describe User do
       expect(user.role).to eq('user')
     end
 
-    it "should over ride default of 0 if passed in create" do
+    it "should over ride default of 1 if passed in create" do
       user_params = {
         email: "zach@gmail.com",
         name: "Zach H",
@@ -50,6 +50,40 @@ RSpec.describe User do
 
       admin = User.create(admin_params)
       expect(admin.role).to eq('admin')
+    end
+  end
+
+  describe "class methods" do
+    before(:each) do
+      user_params = {
+        email: "zach@gmail.com",
+        name: "Zach H",
+        password: "1234",
+        address: "499 Humboldt. Pl." 
+      }
+
+      @user = User.create(user_params)
+
+      @user2 = User.create!(
+        email: 'john@example.com',
+        name: 'John Wick',
+        address: '900 Victoria St.',
+        password: '1234',
+        password_confirmation: '1234',
+        city: "Denver",
+        state: "CO",
+        zip: "40000"
+      )
+      subscription_params = {
+          subscription_type: 0,
+          delivery_day: "Monday",
+          user: @user2
+        }
+      @subscription = Subscription.create!(subscription_params)
+    end
+
+    it ".users_with_subscriptions" do
+      expect(User.users_with_subscriptions).to eq([@user2])
     end
   end
 end

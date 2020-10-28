@@ -28,7 +28,7 @@ RSpec.describe 'User order requests' do
 
   it 'User can create order' do
     order_params = {
-      "items": { @item.id => {quantity: 1}, @item2.id => {quantity: 1} },
+      "items": { @item.id => {amount: 1}, @item2.id => {amount: 1} },
       "status": "Pending",
       "delivery_date": "9/5/2020"
     }
@@ -46,7 +46,7 @@ RSpec.describe 'User order requests' do
 
   it 'User can see all their orders' do
     order_params = {
-      "items": { @item.id => {quantity: 1}, @item2.id => {quantity: 1} },
+      "items": { @item.id => {amount: 1}, @item2.id => {amount: 1} },
       "status": "Pending",
       "delivery_date": "9/5/2020"
     }

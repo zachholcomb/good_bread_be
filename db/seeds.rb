@@ -138,11 +138,9 @@ order_4 = Order.create!(user: guest, status: 1, delivery_date: '9/22/2020')
 orders = [order_1, order_2, order_3]
 
 orders.each do |order|
-  12.times do
-    OrderItem.create!(order: order, item: bagel)
-  end
+  OrderItem.create!(order: order, item: bagel, quantity: 12, price: bagel.price)
+  order.calc_total
 end
 
-6.times do 
-  OrderItem.create!(order: order_4, item: donut)
-end
+OrderItem.create!(order: order_4, item: donut, quantity: 6, price: donut.price)
+order_4.calc_total

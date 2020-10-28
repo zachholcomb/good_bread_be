@@ -9,7 +9,9 @@ Rails.application.routes.draw do
       resources :users, only: [:show, :update, :destroy] do
         resources :shipments, only: [:index, :show], controller: :users_shipments
         resources :subscription, except: [:new, :show]
-        resources :orders, only: [:create, :index], controller: :users_orders
+        resources :orders, only: [:create, :index], controller: :users_orders do
+          resources :items, only: [:index], controller: :users_order_items
+        end
       end
 
       # ADMIN ROUTES

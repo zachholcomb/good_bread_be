@@ -4,8 +4,9 @@ class Api::V1::UsersOrdersController < ApplicationController
   def create
     order = current_user.orders.create(order_params)
     params[:items].each do |(item, quantity)|
-        OrderItem.create(order: order, item_id: item.to_i, quantity: quantity[:quantity])
+      OrderItem.create(order: order, item_id: item.to_i, quantity: quantity[:amount])
     end
+    order.calc_total
     render json: { order: OrderSerializer.new(order, include: [:items]), user: UserSerializer.new(current_user)}, status: :created
   end
 

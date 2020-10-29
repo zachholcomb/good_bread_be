@@ -3,8 +3,8 @@ class Api::V1::OrdersController < ApplicationController
     user = User.new(guest_params)
     if user.save
       order = user.orders.create(order_params)
-      params[:items].each do |item|
-        OrderItem.create(order: order, item_id: item.to_i)
+      params[:items].each do |(item, quantity)|
+        OrderItem.create(order: order, item_id: item.to_i, quantity: quantity[:quantity])
       end
       render json: { order: OrderSerializer.new(order), user: UserSerializer.new(user)}, status: :created
     else

@@ -10,7 +10,7 @@ RSpec.describe 'guest orders' do
 
   it 'guest can order items' do
     order_params = {
-      "items": [@item.id, @item2.id],
+      "items": {@item.id => {quantity: 1}, @item2.id => {quantity: 1} },
       "status": "Pending",
       "delivery_date": "9/5/2020",
       "name": "Zach",

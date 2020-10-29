@@ -22,11 +22,11 @@ RSpec.describe 'Admin orders request spec' do
     @item2 = Item.create!(name: 'Croissant', price: 450)
 
     @order1 = @user1.orders.create!(status: 0, delivery_date: '9/18/20')
-    OrderItem.create!(order: @order1, item: @item1)
+    OrderItem.create!(order: @order1, item: @item1, quantity: 1)
     
     @order2 = @user1.orders.create!(status: 0, delivery_date: '9/18/20')
-    OrderItem.create!(order: @order2, item: @item1)
-    OrderItem.create!(order: @order2, item: @item2)
+    OrderItem.create!(order: @order2, item: @item1, quantity: 1)
+    OrderItem.create!(order: @order2, item: @item2, quantity: 1)
 
     login_params = {
         "email": "admin@example.com",

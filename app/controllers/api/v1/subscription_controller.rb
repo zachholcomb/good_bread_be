@@ -4,7 +4,13 @@ class Api::V1::SubscriptionController < ApplicationController
   def index
     return render json: Error.not_found, status: :not_found if subscription?
 
-    render json: SubscriptionSerializer.new(current_user.subscription, include: [:shipments])
+    render json: { subscription: SubscriptionSerializer.new(
+      current_user.subscription
+      ),
+      shipment: ShipmentSerializer.new(
+        current_user.subscription.next_shipment
+      )
+    }
   end
 
   def create
@@ -14,7 +20,9 @@ class Api::V1::SubscriptionController < ApplicationController
   end
 
   def update
-    render json: SubscriptionSerializer.new(Subscription.update(params[:id], subscription_params), include: [:shipments])
+    render json: SubscriptionSerializer.new(
+      Subscription.update(params[:id], subscription_params), include: [:shipments]
+    )
   end
 
   def destroy

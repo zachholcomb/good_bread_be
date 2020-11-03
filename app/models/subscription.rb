@@ -7,6 +7,10 @@ class Subscription < ApplicationRecord
   enum subscription_type: %w(Monthly Bi-Monthly Weekly)
 
   def set_subscription_type
-    self.subscription_type ||= 0
+    self.subscription_type ||= 2
+  end
+
+  def next_shipment
+    shipments.last
   end
 end

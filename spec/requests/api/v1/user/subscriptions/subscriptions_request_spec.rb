@@ -30,6 +30,11 @@ RSpec.describe 'Subscription requests' do
         delivery_date: '9/14/2020',
         status: "Delivered"
       )
+      @shipment2 = Shipment.create!(
+        subscription: @subscription,
+        delivery_date: '9/14/2020',
+        status: "Shipped"
+      )
 
       login_params = {
         "email": "john@example.com",
@@ -101,7 +106,16 @@ RSpec.describe 'Subscription requests' do
       expect(response.status).to eq(200)
 
       sub_response = JSON.parse(response.body, symbolize_names: true)
-      expect(sub_response[:data][:attributes][:id]).to eq(@user1.subscription.id)
+      expect(sub_response[:subscription][:data][:attributes][:id]).to eq(@user1.subscription.id)
+    end
+
+    it 'returns next shipment along with subscription' do
+      get "/api/v1/users/#{@user1.id}/subscription", headers: @header
+      expect(response).to be_successful
+      expect(response.status).to eq(200)
+
+      sub_response = JSON.parse(response.body, symbolize_names: true)
+      expect(sub_response[:shipment][:data][:attributes][:id]).to eq(@shipment2.id)
     end
   end
 end

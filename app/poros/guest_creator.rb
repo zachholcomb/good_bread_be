@@ -23,7 +23,7 @@ class GuestCreator
     @role = 0
   end
 
-  def set_guest
+  def set_guest 
     User.create(
       email: email,
       name: name,

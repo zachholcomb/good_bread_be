@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_26_230430) do
+ActiveRecord::Schema.define(version: 2020_12_14_045512) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,10 @@ ActiveRecord::Schema.define(version: 2020_10_26_230430) do
     t.string "checksum", null: false
     t.datetime "created_at", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "allergies", force: :cascade do |t|
+    t.string "name"
   end
 
   create_table "items", force: :cascade do |t|
@@ -85,12 +89,21 @@ ActiveRecord::Schema.define(version: 2020_10_26_230430) do
     t.index ["subscription_id"], name: "index_shipments_on_subscription_id"
   end
 
+  create_table "subscription_allergies", force: :cascade do |t|
+    t.bigint "allergy_id"
+    t.bigint "subscription_id"
+    t.index ["allergy_id"], name: "index_subscription_allergies_on_allergy_id"
+    t.index ["subscription_id"], name: "index_subscription_allergies_on_subscription_id"
+  end
+
   create_table "subscriptions", force: :cascade do |t|
     t.string "delivery_day"
     t.integer "subscription_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
+    t.boolean "flavors?"
+    t.integer "amount"
     t.index ["user_id"], name: "index_subscriptions_on_user_id"
   end
 
@@ -112,5 +125,7 @@ ActiveRecord::Schema.define(version: 2020_10_26_230430) do
   add_foreign_key "shipment_items", "items"
   add_foreign_key "shipment_items", "shipments"
   add_foreign_key "shipments", "subscriptions", on_delete: :cascade
+  add_foreign_key "subscription_allergies", "allergies"
+  add_foreign_key "subscription_allergies", "subscriptions"
   add_foreign_key "subscriptions", "users"
 end

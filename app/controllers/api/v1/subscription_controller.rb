@@ -16,7 +16,8 @@ class Api::V1::SubscriptionController < ApplicationController
   def create
     return render json: Error.missing_params, status: :bad_request if missing_params?
 
-    render json: SubscriptionSerializer.new(Subscription.create(subscription_params)), status: :created
+    subscription = SubscriptionCreator.create_subscription(current_user, subscription_params)
+    render json: SubscriptionSerializer.new(subscription), status: :created
   end
 
   def update
@@ -32,11 +33,11 @@ class Api::V1::SubscriptionController < ApplicationController
   private
 
   def subscription_params
-    params.permit(:delivery_day, :subscription_type, :user_id)
+    params.permit(:delivery_day, :subscription_type, :user_id, :amount, :allergies, :flavors?)
   end
 
   def missing_params?
-    params[:subscription_type].blank? || params[:delivery_day].blank?
+    params[:amount].blank? || params[:flavors?].blank?
   end
 
   def subscription?

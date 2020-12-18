@@ -7,8 +7,10 @@ RSpec.describe Subscription do
   end
 
   describe "relationships" do
-    it { should belong_to :user }
+    it { should belong_to(:user) }
     it { should have_many(:shipments) }
+    it { should have_many(:subscription_allergies) }
+    it { should have_many(:allergies).through(:subscription_allergies)}
   end
 
   describe 'instance methods' do

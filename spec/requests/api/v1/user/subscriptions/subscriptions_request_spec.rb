@@ -35,9 +35,11 @@ RSpec.describe 'Subscription requests' do
         delivery_date: '9/14/2020',
         status: "Shipped"
       )
+    end
 
+    it "create subscription spec" do
       login_params = {
-        "email": "john@example.com",
+        "email": "johnathon@example.com",
         "password": "1234"
       }
       post '/api/v1/login', params: login_params
@@ -46,12 +48,12 @@ RSpec.describe 'Subscription requests' do
       @header = {
         "X-CSRF-TOKEN": token
       }
-    end
-
-    it "create subscription spec" do
       sub_params = {
         "subscription_type": "Monthly",
-        "delivery_day": "Monday"
+        "delivery_day": "Monday",
+        "amount": '1',
+        "allergies": "Walnuts, Blueberries",
+        "flavors?": true
       }
       post "/api/v1/users/#{@user2.id}/subscription", params: sub_params, headers: @header
       expect(response).to be_successful
@@ -65,6 +67,16 @@ RSpec.describe 'Subscription requests' do
     end
 
     it "create subscription error handling missing params" do
+      login_params = {
+        "email": "johnathon@example.com",
+        "password": "1234"
+      }
+      post '/api/v1/login', params: login_params
+      credentials = JSON.parse(response.body, symbolize_names: true)
+      token = credentials[:csrf]
+      @header = {
+        "X-CSRF-TOKEN": token
+      }
       sub_params = {
         "delivery_day": "Monday"
       }
@@ -78,6 +90,16 @@ RSpec.describe 'Subscription requests' do
     end
 
     it "user can update subscription" do
+      login_params = {
+        "email": "john@example.com",
+        "password": "1234"
+      }
+      post '/api/v1/login', params: login_params
+      credentials = JSON.parse(response.body, symbolize_names: true)
+      token = credentials[:csrf]
+      @header = {
+        "X-CSRF-TOKEN": token
+      }
       subscription = @user1.subscription
       update = { "subscription_type": "Bi-Monthly" }
       put "/api/v1/users/#{@user1.id}/subscription/#{subscription.id}", params: update, headers: @header
@@ -91,6 +113,16 @@ RSpec.describe 'Subscription requests' do
     end
 
     it "user can delete their subscription" do
+      login_params = {
+        "email": "john@example.com",
+        "password": "1234"
+      }
+      post '/api/v1/login', params: login_params
+      credentials = JSON.parse(response.body, symbolize_names: true)
+      token = credentials[:csrf]
+      @header = {
+        "X-CSRF-TOKEN": token
+      }
       subscription = @user1.subscription
       delete "/api/v1/users/#{@user1.id}/subscription/#{subscription.id}", headers: @header
       expect(response).to be_successful
@@ -101,6 +133,16 @@ RSpec.describe 'Subscription requests' do
     end
 
     it 'can get a users subscription' do
+      login_params = {
+        "email": "john@example.com",
+        "password": "1234"
+      }
+      post '/api/v1/login', params: login_params
+      credentials = JSON.parse(response.body, symbolize_names: true)
+      token = credentials[:csrf]
+      @header = {
+        "X-CSRF-TOKEN": token
+      }
       get "/api/v1/users/#{@user1.id}/subscription", headers: @header
       expect(response).to be_successful
       expect(response.status).to eq(200)
@@ -110,6 +152,16 @@ RSpec.describe 'Subscription requests' do
     end
 
     it 'returns next shipment along with subscription' do
+      login_params = {
+        "email": "john@example.com",
+        "password": "1234"
+      }
+      post '/api/v1/login', params: login_params
+      credentials = JSON.parse(response.body, symbolize_names: true)
+      token = credentials[:csrf]
+      @header = {
+        "X-CSRF-TOKEN": token
+      }
       get "/api/v1/users/#{@user1.id}/subscription", headers: @header
       expect(response).to be_successful
       expect(response.status).to eq(200)
